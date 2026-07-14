@@ -106,6 +106,12 @@
     text-align:center !important;font-family:'Alex Brush',cursive !important;font-size:1.8rem;
     color:var(--gold-300);margin-top:30px !important;
   }
+  /* coracao em SVG: o caractere ♥ vira emoji vermelho em varios celulares e
+     ignora a cor do CSS. Em SVG a cor da marca vale em qualquer aparelho. */
+  .heart-svg{
+    display:inline-block;width:.78em;height:.78em;
+    fill:var(--lilac-500);vertical-align:-0.08em;margin:0 .08em;
+  }
   @media (max-width:800px){
     .story-grid{grid-template-columns:1fr;}
     .story-photo-wrap{position:static;max-width:340px;margin:0 auto;}
@@ -826,7 +832,7 @@
       <p>Então a Borbelha é uma homenagem a todas as mulheres fenomenais da nossa família, pois cada uma delas é um pouco da doceria. Seja na atenção aos detalhes, no amor e carinho, ou no empreendedorismo e liderança. Cada característica marcante destas grandes mulheres está presente na nossa história. E assim aprendemos também: recebemos tanto amor, mas tanto mesmo, que queremos compartilhar ele com vocês. Então, aqui, na Borbelha tudo é feito com amor. E aqui acreditamos que tudo feito com amor floresce — e floresce no jardim mais lindo. Mas o nosso jardim não é de flores, e sim de memórias afetivas: as memórias daqueles que amamos, daquilo que amamos, e que regamos tão contentes.</p>
       <p>A Borbelha é a união da beleza, felicidade e delicadeza das borboletas — que representam a Avó Jovelina, tão amada, tão querida e tão magnífica como as borboletas que cercavam o jardim de rosas que ela cuidava com todo carinho — com a disciplina, diligência e amor das abelhas, que representam a Avó Ceci, tão inteligente, decidida e imponente como a abelha que ela carregava no seu broche mais amado. Tudo para manter o equilíbrio, as cores e a beleza no nosso jardim de doces.</p>
       <p>E nós, que começamos com um sonho tímido — sonho esse que nasceu da superação de momentos difíceis, onde os doces carregavam um pouco do carinho que precisávamos, quando os doces funcionaram de remédio para a alma. Sonho esse que não é mais sonho, é realidade. O delivery e as encomendas são só o começo: a Borbelha nasceu para alçar voo. Nossos doces são maravilhosos, e nós esperamos que vocês amem tanto eles quanto nós amamos!</p>
-      <p class="story-signoff">we <span style="color:var(--lilac-500);">&#9829;</span> you</p>
+      <p class="story-signoff">we <svg class="heart-svg" viewBox="0 0 24 24" role="img" aria-label="amor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> you</p>
     </div>
   </div>
 </section>
