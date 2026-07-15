@@ -190,6 +190,9 @@
     opacity:0;transition:opacity .28s ease;
     padding:24px;
   }
+  /* quando fechado (hidden) fica realmente fora da tela, senao a camada
+     invisivel cobre a pagina e intercepta todos os cliques/toques */
+  .lightbox[hidden]{display:none;}
   .lightbox.open{opacity:1;}
   .lightbox img{
     max-width:min(92vw,760px);max-height:86vh;width:auto;height:auto;
