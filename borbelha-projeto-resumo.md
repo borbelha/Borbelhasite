@@ -1,9 +1,9 @@
 # Borbelha Doceria — Site (resumo do projeto)
 
 ## O que é
-Site de página única (`index.html`) para a **Borbelha Doceria**, em Curitiba/PR.
-Feito em HTML/CSS/JS puro, sem frameworks — um arquivo só, com todas as imagens
-embutidas em base64 (por isso o arquivo tem ~7MB).
+Site para a **Borbelha Doceria**, em Curitiba/PR, feito em HTML/CSS/JS puro, sem
+frameworks. Duas páginas: `index.html` (principal) e `experiencia.html`. As imagens
+ficam em `/images` (arquivos reais). **Já está no ar em www.borbelha.com.br.**
 
 ## Dados do negócio
 - **Nome:** Borbelha Doceria
@@ -50,24 +50,66 @@ embutidas em base64 (por isso o arquivo tem ~7MB).
      que é combinado no WhatsApp)
 9. **Footer** — endereço, horário, contato, Instagram, menção ao iFood
 
-## Próximo passo: deploy
-- Repositório já criado: `https://github.com/borbelha/Borbelhasite.git`
-- Plano: subir `index.html` no repo → importar na Vercel → apontar domínio
-  `www.borbelha.com.br` (registro.br) via DNS:
-  - CNAME `www` → `cname.vercel-dns.com`
-  - A `@` (raiz) → `76.76.21.21`
-- Ainda não foi feito o deploy — Claude não tem acesso a internet/GitHub/Vercel para
-  fazer isso diretamente, precisa ser feito manualmente pelo usuário (passo a passo já
-  foi passado numa mensagem anterior desta conversa).
+## Deploy — CONCLUÍDO (site no ar)
+- **No ar em:** https://www.borbelha.com.br (e https://borbelha.com.br redireciona pro www)
+- **Repositório:** https://github.com/borbelha/Borbelhasite.git (branch `main`)
+- **Hospedagem:** Vercel, conectada ao repo → cada `git push` na `main` republica sozinho
+- **DNS:** feito no registro.br via "Configurar zona DNS" (NÃO por nameservers da Vercel —
+  os `ns1/ns2.vercel-dns.com` só funcionam pra domínio comprado na Vercel; deu "pesquisa
+  recusada"). Registros usados:
+  - `A` `@` → `76.76.21.21`
+  - `CNAME` `www` → `cname.vercel-dns.com`
+  - Sem registro MX de propósito (não usam e-mail no domínio)
+- **Fluxo pra publicar mudanças:** editar → `git add`/`commit`/`push origin main`.
+  O push por HTTPS pode abrir o Git Credential Manager pedindo login do GitHub; rodar
+  em background pra não travar. Identidade git local: nome "Borbelha-git",
+  email belobeatriz11@gmail.com.
 
-## Possível otimização futura
-O arquivo está pesado (~7MB) porque todas as imagens (logo, fachada, balcão, 41 fotos
-da galeria, foto das fundadoras) estão em base64 dentro do próprio HTML. Isso funciona,
-mas deixa o carregamento mais lento em conexões ruins. Se quiser, dá pra separar as
-imagens em arquivos próprios (pasta `/images`) e referenciar por caminho relativo —
-melhora a performance sem mudar nada visualmente.
+## Estrutura de arquivos (atual)
+- `index.html` (~90KB) — página principal
+- `experiencia.html` — página "A Experiência Borbelha" (jornada de degustação; ver abaixo)
+- `404.html` — página de erro personalizada no estilo da marca
+- `robots.txt` + `sitemap.xml` — pra indexação no Google
+- `/images/` — todas as fotos em arquivos reais (não mais base64):
+  `logo.png`, `favicon.png`, `apple-touch-icon.png`, `og-image.jpg` (preview de
+  compartilhamento, 1200x630 da fachada), `fachada.jpg`, `balcao.jpg`, `fundadoras.jpg`,
+  e `doce-01.jpg`..`doce-41.jpg` (galeria).
+- `.gitignore` ignora `.claude/`
 
-## Onde está o arquivo
-O `index.html` final (site completo, pronto pra subir) foi gerado e baixado pelo
-usuário nesta conversa. Ele precisa ser reenviado/reanexado na nova sessão do
-Claude Code para continuar a edição, pois o Claude não retém arquivos entre sessões.
+## Página "A Experiência Borbelha" (experiencia.html)
+Página independente sobre a jornada de degustação presencial na lojinha. Seções: hero,
+"por que uma experiência", linha do tempo com 6 passos (boas-vindas, expresso especial
+com licor artesanal, trilha de 6 cookies, mini bolo abacaxi/coco, café com licor de doce
+de leite, mini brownie de lembrança), "leve a experiência com você", faixa de CTA e
+rodapé. Mesmo sistema visual do site.
+
+## Melhorias já feitas (além do site original)
+- **Menu em gaveta:** a barra antiga de 12 links com scroll horizontal virou um botão
+  (hambúrguer) no canto que abre uma gaveta lateral, com links agrupados em "A Borbelha",
+  "Cardápio" e "Pedidos". Mesmo menu no index e na experiencia.
+- **Peso:** imagens extraídas de base64 → index caiu de ~6.8MB pra ~90KB.
+- **SEO:** meta description, canonical, theme-color, Open Graph/Twitter (cartão de preview
+  ao compartilhar no WhatsApp/Insta), JSON-LD tipo `Bakery` (endereço/horário/telefone).
+- **Favicon** (logo) na aba e ícone de iOS.
+- **Google Search Console:** propriedade verificada (tag `google-site-verification` no
+  `<head>` das duas páginas — NÃO REMOVER). Sitemap enviado + indexação solicitada.
+- **Card na home** convidando pra página da Experiência (usa o selo/logo da marca).
+- **Coração roxo:** o "we ♥ you" usa um SVG (não o caractere ♥, que virava emoji vermelho
+  em vários celulares e ignorava a cor). Fica no lilás da marca em qualquer aparelho.
+- **Lightbox na galeria:** clicar numa foto abre ampliada, com setas/teclado/swipe e o
+  nome do doce como legenda.
+- **Galeria nomeada:** as 41 fotos têm o nome real do doce no `alt` (bom pra Google
+  Imagens e acessibilidade). Ordem das fotos = ordem que aparece no site.
+- **width/height em todas as imagens** (evita layout shift).
+
+## Pendências (dependem da usuária, não do código)
+- **Depoimentos:** adiar. Falta a usuária mandar frases REAIS de clientes (Insta/WhatsApp/
+  iFood) com primeiro nome. Não inventar depoimentos.
+- **Perfil da Empresa no Google** (google.com/business): cadastrado como "Borbelha
+  Doceria"; confirmar se a VERIFICAÇÃO foi concluída (só aparece publicamente depois de
+  verificado). É o que cria o card com mapa/foto/horário na busca — maior alavanca de
+  clientes locais.
+- **Link do site na bio do Instagram** (@borbelha) — traz visitas e ajuda o Google a
+  descobrir o site.
+- **Indexação no Google:** leva de dias a ~2 semanas; acompanhar com `site:borbelha.com.br`
+  na busca. Como "borbelha" é nome único, deve rankear bem assim que indexar.
