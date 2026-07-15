@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página não encontrada — Borbelha Doceria</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;900&family=Cormorant+Garamond&family=Alex+Brush&family=Jost:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-950:#22072E; --purple-900:#340B47; --lilac-100:#F1E6FA;
+    --lilac-300:#D8BEF2; --rose-300:#F3C4DC; --gold-300:#E9CE8E; --gold-500:#D3A94B;
+    --cream:#FBF3E7; --ink:#22072E; --line: rgba(216,190,242,0.22);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:40px 24px;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% -8%, rgba(99,32,125,0.5), transparent 62%),
+      linear-gradient(180deg, var(--purple-900), var(--purple-950));
+    color:var(--lilac-100);font-family:'Cormorant Garamond',serif;
+  }
+  img.logo{width:120px;margin-bottom:22px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.35));}
+  .eyebrow{font-family:'Alex Brush',cursive;color:var(--rose-300);font-size:2rem;line-height:1;margin-bottom:6px;}
+  h1{font-family:'Playfair Display',serif;font-weight:900;color:var(--cream);
+     font-size:clamp(2.4rem,9vw,3.6rem);margin:0;letter-spacing:.02em;}
+  p{max-width:440px;font-size:1.15rem;opacity:.9;margin:16px auto 0;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;margin-top:30px;
+    font-family:'Jost',sans-serif;font-weight:600;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:14px 28px;border-radius:999px;
+    background:linear-gradient(180deg, var(--gold-300), var(--gold-500));color:var(--ink);
+    box-shadow:0 14px 34px rgba(211,169,75,0.32);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(211,169,75,0.42);}
+  a{color:inherit;text-decoration:none;}
+</style>
+</head>
+<body>
+  <img class="logo" src="/images/logo.png" alt="Borbelha Doceria">
+  <span class="eyebrow">ops!</span>
+  <h1>Página não encontrada</h1>
+  <p>Parece que esse docinho saiu do cardápio. Que tal voltar pro começo e escolher outro?</p>
+  <a class="btn" href="/">Voltar para o início</a>
+</body>
+</html>
