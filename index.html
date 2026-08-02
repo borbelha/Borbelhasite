@@ -275,6 +275,23 @@
     opacity:.95;
   }
 
+  /* ---------- barra de aviso (topo) ---------- */
+  .topbar{
+    position:relative;z-index:40;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(90deg, var(--gold-300), var(--gold-500));
+    color:var(--ink);padding:9px 44px 9px 18px;text-align:center;
+  }
+  .topbar-msg{font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.02em;color:var(--ink);}
+  .topbar-msg:hover{text-decoration:underline;}
+  .topbar-close{
+    position:absolute;right:12px;top:50%;transform:translateY(-50%);
+    background:transparent;border:none;color:var(--ink);opacity:.65;
+    font-size:1rem;line-height:1;cursor:pointer;padding:4px;
+  }
+  .topbar-close:hover{opacity:1;}
+  @media (max-width:520px){ .topbar{padding:8px 40px 8px 14px;} .topbar-msg{font-size:.72rem;} }
+
   /* ---------- nav ---------- */
   .nav{
     position:sticky;top:0;z-index:50;
@@ -814,6 +831,12 @@
     </g>
   </symbol>
 </svg>
+
+<!-- ============ BARRA DE AVISO — trocar o texto/link e o data-promo quando mudar a data ============ -->
+<div class="topbar" id="topbar" data-promo="diadospais-2026">
+  <a class="topbar-msg" href="#encomendas">🎁 Encomendas para o Dia dos Pais abertas — garanta a sua! 💜</a>
+  <button type="button" class="topbar-close" id="topbarClose" aria-label="Fechar aviso">&#10005;</button>
+</div>
 
 <!-- ============ NAV ============ -->
 <nav class="nav">
@@ -1815,6 +1838,21 @@
     document.getElementById('promoWpp').addEventListener('click', fechar);
     scrim.addEventListener('click', function(e){ if(e.target === scrim) fechar(); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !scrim.hidden) fechar(); });
+  })();
+</script>
+
+<script>
+  /* ---------- barra de aviso: fechar e lembrar (reaparece se trocar o data-promo) ---------- */
+  (function(){
+    var bar = document.getElementById('topbar');
+    if(!bar) return;
+    var id = bar.getAttribute('data-promo');
+    try{ if(localStorage.getItem('promoBar') === id){ bar.style.display='none'; return; } }catch(e){}
+    var c = document.getElementById('topbarClose');
+    if(c) c.addEventListener('click', function(){
+      bar.style.display='none';
+      try{ localStorage.setItem('promoBar', id); }catch(e){}
+    });
   })();
 </script>
 
