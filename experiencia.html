@@ -313,6 +313,45 @@
     padding:13px 18px;border-radius:999px;
   }
   body.nav-open{overflow:hidden;}
+
+  /* ---------- popup do cupom ---------- */
+  .promo-scrim{
+    position:fixed;inset:0;z-index:95;
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    background:rgba(15,3,21,0.72);backdrop-filter:blur(4px);
+    opacity:0;transition:opacity .3s ease;
+  }
+  .promo-scrim.open{opacity:1;}
+  .promo-scrim[hidden]{display:none;}
+  .promo{
+    position:relative;max-width:400px;width:100%;text-align:center;
+    background:linear-gradient(180deg, var(--purple-900), var(--purple-950));
+    border:1px solid var(--gold-500);border-radius:24px;padding:34px 28px 26px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.55);
+    transform:translateY(14px) scale(.98);transition:transform .3s ease;
+  }
+  .promo-scrim.open .promo{transform:none;}
+  .promo-close{
+    position:absolute;top:12px;right:14px;background:transparent;border:none;
+    color:var(--lilac-300);font-size:1.3rem;line-height:1;cursor:pointer;padding:6px;
+  }
+  .promo-close:hover{color:var(--gold-300);}
+  .promo .logo{width:74px;height:auto;margin:0 auto 12px;filter:drop-shadow(0 6px 16px rgba(0,0,0,0.4));}
+  .promo .eyebrow{font-size:1.7rem;margin-bottom:4px;}
+  .promo h3{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--cream);margin:0 0 10px;line-height:1.25;}
+  .promo p{color:var(--lilac-100);opacity:.9;font-size:1.02rem;line-height:1.6;margin:0 0 18px;}
+  .promo p strong{color:var(--gold-300);}
+  .promo .code{
+    display:inline-block;font-family:'Jost',sans-serif;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--gold-300);
+    border:1px dashed var(--gold-500);border-radius:12px;padding:10px 22px;margin-bottom:20px;font-size:1rem;
+  }
+  .promo .btn{width:100%;justify-content:center;}
+  .promo .fineprint{
+    font-family:'Jost',sans-serif;font-size:.66rem;letter-spacing:.02em;text-transform:none;
+    color:var(--lilac-300);opacity:.7;margin:14px 0 0;line-height:1.5;
+  }
+  body.promo-open{overflow:hidden;}
   @media (max-width:480px){
     .nav-actions .btn-wpp-small{display:none;} /* no celular o CTA vive dentro da gaveta */
   }
@@ -1006,6 +1045,46 @@
     Array.prototype.forEach.call(drawer.querySelectorAll('a'), function(a){
       a.addEventListener('click', closeMenu);
     });
+  })();
+</script>
+
+<!-- ============ POPUP DO CUPOM (WhatsApp) ============ -->
+<div class="promo-scrim" id="promoScrim" hidden>
+  <div class="promo" role="dialog" aria-label="Cupom de desconto">
+    <button type="button" class="promo-close" id="promoClose" aria-label="Fechar">&#10005;</button>
+    <img class="logo" src="/images/logo.png" alt="Borbelha Doceria" width="683" height="733">
+    <span class="eyebrow">um presente pra você</span>
+    <h3>10% de desconto na sua próxima visita</h3>
+    <p>Chame a gente no WhatsApp e ganhe <strong>10% off</strong> na nossa loja física — e receba as novidades e promoções em primeira mão.</p>
+    <div class="code">cupom: weloveyou</div>
+    <a class="btn btn-primary" id="promoWpp" href="https://wa.me/5541992111322?text=Oi%2C%20Borbelha!%20%F0%9F%92%9C%20Quero%20meu%20cupom%20weloveyou%20de%2010%25%20de%20desconto%20e%20receber%20as%20novidades%20de%20voc%C3%AAs!" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm5.6 14.3c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-3.2-.7-2.7-1.1-4.5-3.7-4.6-3.9-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.2.1.4.1.5-.1l.8-.9c.2-.2.3-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.1 1.3z"/></svg>
+      Quero meu cupom no WhatsApp
+    </a>
+    <p class="fineprint">Válido na loja física em Tingui, apresentando o código. Ao chamar no WhatsApp, você concorda em receber novidades da Borbelha — é só pedir pra sair quando quiser.</p>
+  </div>
+</div>
+<script>
+  (function(){
+    var scrim = document.getElementById('promoScrim');
+    if(!scrim) return;
+    try{ if(sessionStorage.getItem('promoVisto')) return; }catch(e){}
+    function abrir(){
+      scrim.hidden = false;
+      requestAnimationFrame(function(){ scrim.classList.add('open'); });
+      document.body.classList.add('promo-open');
+      try{ sessionStorage.setItem('promoVisto','1'); }catch(e){}
+    }
+    function fechar(){
+      scrim.classList.remove('open');
+      document.body.classList.remove('promo-open');
+      setTimeout(function(){ if(!scrim.classList.contains('open')) scrim.hidden = true; }, 300);
+    }
+    setTimeout(abrir, 900);
+    document.getElementById('promoClose').addEventListener('click', fechar);
+    document.getElementById('promoWpp').addEventListener('click', fechar);
+    scrim.addEventListener('click', function(e){ if(e.target === scrim) fechar(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !scrim.hidden) fechar(); });
   })();
 </script>
 
